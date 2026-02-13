@@ -6,116 +6,139 @@
     <title>Amalan Hidupku</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Amiri:wght@400;700&display=swap');
-        .arabic { font-family: 'Amiri', serif; direction: rtl; }
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; }
+        .zikir-card:active { transform: scale(0.98); }
     </style>
 </head>
-<body class="bg-slate-50 pb-20">
+<body class="bg-slate-50 min-h-screen pb-20">
 
-    <header class="bg-white border-b sticky top-0 z-10 p-4 shadow-sm">
-        <h1 class="text-xl font-extrabold text-emerald-700 text-center">AMALAN HIDUPKU</h1>
+    <header class="bg-white border-b sticky top-0 z-10 px-6 py-4 shadow-sm">
+        <h1 class="text-2xl font-bold text-emerald-600 text-center uppercase tracking-tight">Amalan Hidupku</h1>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
-
-        <section id="zikir" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 text-center">
-            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Tasbih Digital</h2>
-            <div id="display" class="text-7xl font-black text-slate-800 mb-6">0</div>
-            
-            <button onclick="tambah()" class="w-40 h-40 bg-emerald-500 rounded-full border-8 border-emerald-50 shadow-xl shadow-emerald-200 active:scale-90 transition-transform flex items-center justify-center mx-auto mb-6">
-                <span class="text-white text-5xl">+</span>
-            </button>
-
-            <div class="flex justify-around">
-                <button onclick="reset()" class="text-slate-400 hover:text-red-500 font-medium">Reset</button>
-                <div class="text-slate-300">|</div>
-                <span id="total-zikir" class="text-slate-500 font-medium">Total: 0</span>
+    <main id="mainPage" class="p-6 space-y-4 max-w-md mx-auto">
+        <div class="flex justify-between items-end mb-2">
+            <h2 class="text-lg font-semibold text-slate-700">Pilih Zikir</h2>
+            <span id="overallTotal" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Total: 0</span>
+        </div>
+        
+        <div onclick="startZikir('Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
+            <div>
+                <h3 class="font-bold text-slate-800">1. Tasbih</h3>
+                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
             </div>
-        </section>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
 
-        <section id="doa" class="space-y-4">
-            <h2 class="text-lg font-bold text-slate-800 px-2">Doa Pilihan</h2>
-            
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                <h3 class="font-bold text-emerald-600 mb-2">Doa Ibu Bapa</h3>
-                <p class="arabic text-2xl leading-loose mb-3">رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</p>
-                <p class="text-sm text-slate-600 italic">"Wahai Tuhanku, ampunilah aku dan kedua ibu bapaku..."</p>
+        <div onclick="startZikir('Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
+            <div>
+                <h3 class="font-bold text-slate-800">2. Tahmid</h3>
+                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
             </div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
 
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                <h3 class="font-bold text-emerald-600 mb-2">Doa Kebaikan Dunia Akhirat</h3>
-                <p class="arabic text-2xl leading-loose mb-3">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>
-                <p class="text-sm text-slate-600 italic">"Wahai Tuhan kami, berilah kami kebaikan di dunia dan akhirat..."</p>
+        <div onclick="startZikir('Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
+            <div>
+                <h3 class="font-bold text-slate-800">3. Takbir</h3>
+                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
             </div>
-        </section>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
 
-        <section id="quran" class="space-y-4">
-            <h2 class="text-lg font-bold text-slate-800 px-2">Surah Al-Ikhlas</h2>
-            <div class="bg-emerald-900 text-white p-6 rounded-3xl shadow-lg">
-                <p class="arabic text-3xl text-center leading-[3.5rem]">
-                    قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلَدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾
-                </p>
+        <div onclick="startZikir('Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
+            <div>
+                <h3 class="font-bold text-slate-800">4. Tahlil</h3>
+                <p class="text-xs text-slate-500">Kiraan: 100 Kali</p>
             </div>
-        </section>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
 
+        <div onclick="startZikir('Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
+            <div>
+                <h3 class="font-bold text-slate-800">5. Tasbih Mizan</h3>
+                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
+            </div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-3 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
-        <button onclick="window.scrollTo(0,0)" class="flex flex-col items-center text-emerald-600">
-            <span class="text-xl">📿</span>
-            <span class="text-[10px] font-bold">Zikir</span>
+    <div id="counterPage" class="hidden fixed inset-0 bg-white z-20 flex flex-col items-center justify-center p-6">
+        <button onclick="goBack()" class="absolute top-8 left-6 text-slate-400 font-bold flex items-center gap-2">
+            <span>✕</span> Tutup
         </button>
-        <a href="#doa" class="flex flex-col items-center text-slate-400">
-            <span class="text-xl">🤲</span>
-            <span class="text-[10px] font-bold">Doa</span>
-        </a>
-        <a href="#quran" class="flex flex-col items-center text-slate-400">
-            <span class="text-xl">📖</span>
-            <span class="text-[10px] font-bold">Al-Quran</span>
-        </a>
-    </nav>
+        
+        <h2 id="zikirTitle" class="text-xl font-bold text-slate-400 uppercase tracking-widest mb-2">Tasbih</h2>
+        <p id="arabicText" class="arabic text-4xl text-emerald-600 mb-12 text-center leading-relaxed px-4"></p>
+        
+        <div onclick="decrement()" class="w-72 h-72 bg-emerald-500 rounded-full shadow-2xl shadow-emerald-200 flex items-center justify-center cursor-pointer active:scale-90 transition-transform border-[12px] border-emerald-50">
+            <span id="countDisplay" class="text-8xl font-black text-white">33</span>
+        </div>
+        
+        <p class="mt-10 text-slate-400 font-medium animate-pulse">Ketuk di mana-mana untuk mengira</p>
+        <button onclick="resetCount()" class="mt-6 text-xs text-rose-400 font-bold border border-rose-100 px-4 py-2 rounded-full">RESET KIRAAN</button>
+    </div>
 
     <script>
-        // Logik Counter (Offline Storage)
-        let count = parseInt(localStorage.getItem('zikir_count')) || 0;
-        let total = parseInt(localStorage.getItem('total_zikir')) || 0;
+        let currentCount = 0;
+        let initialLimit = 0;
+        let totalZikir = parseInt(localStorage.getItem('total_zikir_global')) || 0;
 
-        const display = document.getElementById('display');
-        const totalDisplay = document.getElementById('total-zikir');
+        // Update total masa mula-mula
+        document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
 
-        // Update skrin masa mula-mula buka
-        display.innerText = count;
-        totalDisplay.innerText = `Total: ${total}`;
-
-        function tambah() {
-            count++;
-            total++;
-            kemaskini();
-            // Getaran ringkas bila tekan (Haptic Feedback)
-            if (navigator.vibrate) navigator.vibrate(50);
+        function startZikir(title, limit, arabic) {
+            document.getElementById('mainPage').classList.add('hidden');
+            document.getElementById('counterPage').classList.remove('hidden');
+            document.getElementById('zikirTitle').innerText = title;
+            document.getElementById('arabicText').innerText = arabic;
+            currentCount = limit;
+            initialLimit = limit;
+            updateDisplay();
         }
 
-        function reset() {
-            if(confirm("Reset kiraan sesi ini? (Total keseluruhan tetap disimpan)")) {
-                count = 0;
-                kemaskini();
+        function decrement() {
+            if (currentCount > 0) {
+                currentCount--;
+                totalZikir++;
+                
+                // Simpan total ke memori fon
+                localStorage.setItem('total_zikir_global', totalZikir);
+                document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
+
+                if (navigator.vibrate) navigator.vibrate(40); 
+                updateDisplay();
+
+                if (currentCount === 0) {
+                    setTimeout(() => {
+                        alert("Alhamdulillah, Selesai!");
+                        goBack();
+                    }, 200);
+                }
             }
         }
 
-        function kemaskini() {
-            display.innerText = count;
-            totalDisplay.innerText = `Total: ${total}`;
-            localStorage.setItem('zikir_count', count);
-            localStorage.setItem('total_zikir', total);
+        function updateDisplay() {
+            document.getElementById('countDisplay').innerText = currentCount;
         }
 
-        // Daftarkan Service Worker untuk PWA
+        function resetCount() {
+            if(confirm("Reset kiraan zikir ini?")) {
+                currentCount = initialLimit;
+                updateDisplay();
+            }
+        }
+
+        function goBack() {
+            document.getElementById('counterPage').classList.add('hidden');
+            document.getElementById('mainPage').classList.remove('hidden');
+        }
+
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
-            });
+            navigator.serviceWorker.register('./sw.js');
         }
     </script>
 </body>
