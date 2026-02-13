@@ -10,76 +10,79 @@
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
-        .zikir-card:active { transform: scale(0.98); }
+        .menu-card:active { transform: scale(0.95); }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-20">
+<body class="bg-slate-50 min-h-screen pb-10">
 
-    <header class="bg-white border-b sticky top-0 z-10 px-6 py-4 shadow-sm">
-        <h1 class="text-2xl font-bold text-emerald-600 text-center uppercase tracking-tight">Amalan Hidupku</h1>
-    </header>
+    <header class="bg-white border-b sticky top-0 z-10 px-6 py-4 shadow-sm flex justify-between items-center">
+        <button onclick="showPage('homePage')" class="text-emerald-600 text-xl">🏠</button>
+        <h1 class="text-xl font-black text-emerald-700 uppercase tracking-tight">Amalan Hidupku</h1>
+        <div class="w-6"></div> </header>
 
-    <main id="mainPage" class="p-6 space-y-4 max-w-md mx-auto">
-        <div class="flex justify-between items-end mb-2">
-            <h2 class="text-lg font-semibold text-slate-700">Pilih Zikir</h2>
-            <span id="overallTotal" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Total: 0</span>
+    <main id="homePage" class="p-6 grid grid-cols-2 gap-4 max-w-md mx-auto">
+        <div onclick="showPage('zikirMenuPage')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">📿</span>
+            <h3 class="font-bold text-slate-800">Zikir</h3>
         </div>
-        
-        <div onclick="startZikir('Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
-            <div>
-                <h3 class="font-bold text-slate-800">1. Tasbih</h3>
-                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
-            </div>
-            <span class="text-emerald-500 font-bold">→</span>
+        <div onclick="alert('Menu Quran akan datang')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">📖</span>
+            <h3 class="font-bold text-slate-800">Quran</h3>
         </div>
-
-        <div onclick="startZikir('Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
-            <div>
-                <h3 class="font-bold text-slate-800">2. Tahmid</h3>
-                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
-            </div>
-            <span class="text-emerald-500 font-bold">→</span>
+        <div onclick="alert('Menu Solat akan datang')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">🕌</span>
+            <h3 class="font-bold text-slate-800">Solat</h3>
         </div>
-
-        <div onclick="startZikir('Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
-            <div>
-                <h3 class="font-bold text-slate-800">3. Takbir</h3>
-                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
-            </div>
-            <span class="text-emerald-500 font-bold">→</span>
+        <div onclick="alert('Menu Doa akan datang')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">🤲</span>
+            <h3 class="font-bold text-slate-800">Doa</h3>
         </div>
-
-        <div onclick="startZikir('Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
-            <div>
-                <h3 class="font-bold text-slate-800">4. Tahlil</h3>
-                <p class="text-xs text-slate-500">Kiraan: 100 Kali</p>
-            </div>
-            <span class="text-emerald-500 font-bold">→</span>
+        <div onclick="alert('Menu Ilmu akan datang')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">📚</span>
+            <h3 class="font-bold text-slate-800">Ilmu</h3>
         </div>
-
-        <div onclick="startZikir('Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="zikir-card bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer hover:border-emerald-300 transition-colors">
-            <div>
-                <h3 class="font-bold text-slate-800">5. Tasbih Mizan</h3>
-                <p class="text-xs text-slate-500">Kiraan: 33 Kali</p>
-            </div>
-            <span class="text-emerald-500 font-bold">→</span>
+        <div onclick="alert('Menu Nota akan datang')" class="menu-card bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer text-center">
+            <span class="text-4xl mb-3">📝</span>
+            <h3 class="font-bold text-slate-800">Catatan</h3>
         </div>
     </main>
 
+    <div id="zikirMenuPage" class="hidden p-6 space-y-4 max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-slate-700">Pilihan Zikir</h2>
+            <span id="overallTotal" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Total: 0</span>
+        </div>
+        
+        <div onclick="startZikir('Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer">
+            <div><h3 class="font-bold text-slate-800">1. Tasbih</h3><p class="text-xs text-slate-500">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer">
+            <div><h3 class="font-bold text-slate-800">2. Tahmid</h3><p class="text-xs text-slate-500">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer">
+            <div><h3 class="font-bold text-slate-800">3. Takbir</h3><p class="text-xs text-slate-500">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer">
+            <div><h3 class="font-bold text-slate-800">4. Tahlil</h3><p class="text-xs text-slate-500">100 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer">
+            <div><h3 class="font-bold text-slate-800">5. Tasbih Mizan</h3><p class="text-xs text-slate-500">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+    </div>
+
     <div id="counterPage" class="hidden fixed inset-0 bg-white z-20 flex flex-col items-center justify-center p-6">
-        <button onclick="goBack()" class="absolute top-8 left-6 text-slate-400 font-bold flex items-center gap-2">
-            <span>✕</span> Tutup
-        </button>
-        
-        <h2 id="zikirTitle" class="text-xl font-bold text-slate-400 uppercase tracking-widest mb-2">Tasbih</h2>
+        <button onclick="showPage('zikirMenuPage')" class="absolute top-8 left-6 text-slate-400 font-bold">✕ Tutup</button>
+        <h2 id="zikirTitle" class="text-xl font-bold text-slate-400 uppercase tracking-widest mb-2 text-center">Tasbih</h2>
         <p id="arabicText" class="arabic text-4xl text-emerald-600 mb-12 text-center leading-relaxed px-4"></p>
-        
         <div onclick="decrement()" class="w-72 h-72 bg-emerald-500 rounded-full shadow-2xl shadow-emerald-200 flex items-center justify-center cursor-pointer active:scale-90 transition-transform border-[12px] border-emerald-50">
             <span id="countDisplay" class="text-8xl font-black text-white">33</span>
         </div>
-        
-        <p class="mt-10 text-slate-400 font-medium animate-pulse">Ketuk di mana-mana untuk mengira</p>
-        <button onclick="resetCount()" class="mt-6 text-xs text-rose-400 font-bold border border-rose-100 px-4 py-2 rounded-full">RESET KIRAAN</button>
+        <button onclick="resetCount()" class="mt-12 text-xs text-rose-400 font-bold border border-rose-100 px-4 py-2 rounded-full">RESET</button>
     </div>
 
     <script>
@@ -87,12 +90,17 @@
         let initialLimit = 0;
         let totalZikir = parseInt(localStorage.getItem('total_zikir_global')) || 0;
 
-        // Update total masa mula-mula
         document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
 
+        function showPage(pageId) {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('zikirMenuPage').classList.add('hidden');
+            document.getElementById('counterPage').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
         function startZikir(title, limit, arabic) {
-            document.getElementById('mainPage').classList.add('hidden');
-            document.getElementById('counterPage').classList.remove('hidden');
+            showPage('counterPage');
             document.getElementById('zikirTitle').innerText = title;
             document.getElementById('arabicText').innerText = arabic;
             currentCount = limit;
@@ -104,42 +112,20 @@
             if (currentCount > 0) {
                 currentCount--;
                 totalZikir++;
-                
-                // Simpan total ke memori fon
                 localStorage.setItem('total_zikir_global', totalZikir);
                 document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
-
                 if (navigator.vibrate) navigator.vibrate(40); 
                 updateDisplay();
-
                 if (currentCount === 0) {
-                    setTimeout(() => {
-                        alert("Alhamdulillah, Selesai!");
-                        goBack();
-                    }, 200);
+                    setTimeout(() => { alert("Alhamdulillah, Selesai!"); showPage('zikirMenuPage'); }, 200);
                 }
             }
         }
 
-        function updateDisplay() {
-            document.getElementById('countDisplay').innerText = currentCount;
-        }
+        function updateDisplay() { document.getElementById('countDisplay').innerText = currentCount; }
+        function resetCount() { if(confirm("Reset kiraan?")) { currentCount = initialLimit; updateDisplay(); } }
 
-        function resetCount() {
-            if(confirm("Reset kiraan zikir ini?")) {
-                currentCount = initialLimit;
-                updateDisplay();
-            }
-        }
-
-        function goBack() {
-            document.getElementById('counterPage').classList.add('hidden');
-            document.getElementById('mainPage').classList.remove('hidden');
-        }
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js'); }
     </script>
 </body>
 </html>
