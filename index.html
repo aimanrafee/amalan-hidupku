@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amalan Hidupku - Premium</title>
+    <title>Amalan Hidupku</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -15,12 +15,11 @@
         }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
         
-        /* Neumorphism Shadow Effect */
+        /* Neumorphism Design System */
         .neu-card {
             background: #f0f4f8;
-            border-radius: 30px;
+            border-radius: 35px;
             box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
-            border: 1px solid rgba(255,255,255,0.2);
         }
         .neu-inset {
             background: #f0f4f8;
@@ -29,115 +28,142 @@
         }
         .neu-btn:active {
             box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
-            transform: scale(0.98);
+            transform: scale(0.97);
+        }
+        .neu-circle {
+            background: #f0f4f8;
+            border-radius: 50%;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
         }
     </style>
 </head>
 <body class="min-h-screen pb-10">
 
-    <header class="p-6 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 neu-card flex items-center justify-center text-emerald-600 text-xl">🕌</div>
-            <div>
-                <h1 class="text-lg font-extrabold text-emerald-800 leading-tight">Amalan Hidupku</h1>
-                <p class="text-[10px] font-bold text-amber-600 tracking-widest uppercase">Platform Islam Digital</p>
+    <header class="p-6 max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 neu-card flex items-center justify-center text-xl">🕌</div>
+                <div>
+                    <h1 class="text-lg font-extrabold text-emerald-800 leading-tight">Amalan Hidupku</h1>
+                    <p class="text-[10px] font-bold text-amber-600 tracking-widest uppercase">Platform Islam Digital</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🔗</button>
+                <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🏠</button>
             </div>
         </div>
-        <div class="flex gap-2">
-            <button class="w-10 h-10 neu-card flex items-center justify-center text-sm">🔗</button>
-            <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center text-sm">🏠</button>
-        </div>
-    </header>
 
-    <section class="px-6 mb-8">
-        <div class="neu-card p-6 border-2 border-amber-100/50">
+        <div id="prayerInfo" class="neu-card p-6 mb-8 border-2 border-white/50">
             <div class="text-center mb-4">
-                <p id="currentDate" class="text-xs font-bold text-emerald-700 uppercase tracking-tighter"></p>
-                <div class="neu-inset mt-2 py-1 px-4 inline-block text-[10px] font-bold text-amber-700">📍 Kuala Lumpur, Putrajaya</div>
+                <p id="todayDate" class="text-[11px] font-black text-emerald-700 uppercase tracking-tighter mb-1"></p>
+                <div class="neu-inset px-4 py-1 inline-block text-[9px] font-bold text-slate-400 italic">
+                    📍 Kuala Lumpur, Putrajaya
+                </div>
             </div>
-            
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-2xl font-black text-slate-800">Zohor</h2>
-                    <p class="text-[10px] font-bold text-emerald-600 uppercase">Akan Datang</p>
+                    <h2 class="text-3xl font-black text-slate-800 tracking-tighter">Zohor</h2>
+                    <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Akan Datang</p>
                 </div>
-                <div class="neu-inset px-6 py-3 text-2xl font-black text-amber-600 tracking-tighter">
+                <div class="neu-inset px-6 py-4 text-2xl font-black text-amber-600 tracking-tighter">
                     -02:14:09
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <main id="homePage" class="px-6 grid grid-cols-2 gap-6 max-w-md mx-auto">
-        <h2 class="col-span-2 text-sm font-bold text-slate-500 ml-2">Menu Utama</h2>
+    <main id="homePage" class="px-8 grid grid-cols-2 gap-6 max-w-md mx-auto">
+        <h2 class="col-span-2 text-xs font-bold text-slate-400 uppercase tracking-widest ml-2">Menu Utama</h2>
         
-        <div onclick="showPage('zikirMenuPage')" class="neu-card neu-btn p-8 flex flex-col items-center justify-center cursor-pointer">
+        <div onclick="showPage('zikirMenuPage')" class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📿</div>
             <h3 class="font-bold text-slate-700 text-sm">Zikir</h3>
         </div>
-        
-        <div class="neu-card neu-btn p-8 flex flex-col items-center justify-center cursor-pointer">
+        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn opacity-60">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📖</div>
-            <h3 class="font-bold text-slate-700 text-sm text-center">Al-Quran</h3>
+            <h3 class="font-bold text-slate-700 text-sm">Al-Quran</h3>
         </div>
-
-        <div class="neu-card neu-btn p-8 flex flex-col items-center justify-center cursor-pointer">
+        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn opacity-60">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">🤲</div>
             <h3 class="font-bold text-slate-700 text-sm">Doa</h3>
         </div>
-
-        <div class="neu-card neu-btn p-8 flex flex-col items-center justify-center cursor-pointer">
+        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn opacity-60">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📝</div>
             <h3 class="font-bold text-slate-700 text-sm">Nota</h3>
         </div>
     </main>
 
-    <div id="zikirMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
+    <section id="zikirMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-black text-slate-800">Pilih Zikir</h2>
-            <div id="overallTotal" class="neu-inset px-4 py-2 text-xs font-black text-emerald-600 tracking-tighter">Total: 0</div>
+            <div id="overallTotal" class="neu-inset px-4 py-2 text-xs font-black text-emerald-600">Total: 0</div>
         </div>
         
-        <div onclick="startZikir('Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs">1</div>
-                <div><h3 class="font-bold text-slate-800 text-sm">Tasbih</h3><p class="text-[10px] font-bold text-slate-400">33 Kali</p></div>
-            </div>
-            <span class="text-emerald-400 font-black">→</span>
+        <div onclick="startZikir('1. Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">1. Tasbih</h3><p class="text-xs text-slate-400">Kiraan: 33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
         </div>
+        <div onclick="startZikir('2. Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">2. Tahmid</h3><p class="text-xs text-slate-400">Kiraan: 33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
         </div>
+        <div onclick="startZikir('3. Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">3. Takbir</h3><p class="text-xs text-slate-400">Kiraan: 33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('4. Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">4. Tahlil</h3><p class="text-xs text-slate-400">Kiraan: 100 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+        <div onclick="startZikir('5. Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">5. Tasbih Mizan</h3><p class="text-xs text-slate-400">Kiraan: 33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+    </section>
 
-    <div id="counterPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-20 flex flex-col items-center justify-center p-6">
-        <button onclick="showPage('zikirMenuPage')" class="absolute top-10 left-8 w-12 h-12 neu-card flex items-center justify-center font-bold text-slate-400">✕</button>
+    <div id="counterPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-50 flex flex-col items-center justify-center p-6">
+        <button onclick="showPage('zikirMenuPage')" class="absolute top-10 left-8 w-12 h-12 neu-card flex items-center justify-center font-bold text-slate-400 neu-btn">✕</button>
         
-        <h2 id="zikirTitle" class="text-sm font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">Tasbih</h2>
-        <p id="arabicText" class="arabic text-4xl text-emerald-700 mb-16 text-center leading-relaxed px-6"></p>
+        <h2 id="zikirTitle" class="text-xs font-bold text-slate-400 uppercase tracking-[0.4em] mb-4">TASBIH</h2>
+        <p id="arabicText" class="arabic text-4xl text-emerald-700 mb-16 text-center leading-relaxed px-8"></p>
         
-        <div onclick="decrement()" class="w-72 h-72 neu-card flex items-center justify-center cursor-pointer neu-btn border-[16px] border-[#f0f4f8]">
+        <div onclick="decrement()" class="w-72 h-72 neu-circle flex items-center justify-center cursor-pointer neu-btn border-[12px] border-white/30">
             <span id="countDisplay" class="text-8xl font-black text-emerald-600 tracking-tighter">33</span>
         </div>
         
-        <button onclick="resetCount()" class="mt-16 neu-card px-10 py-4 text-[10px] font-black text-rose-400 tracking-widest uppercase">Reset Kiraan</button>
+        <button onclick="resetCount()" class="mt-16 neu-card px-10 py-4 text-[10px] font-black text-rose-400 tracking-widest uppercase neu-btn">Reset</button>
     </div>
 
     <script>
-        // Tarikh Hari Ini
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ms-MY', options).toUpperCase();
+        // Set Tarikh Hari Ini
+        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ms-MY', options).toUpperCase();
 
         let currentCount = 0;
         let initialLimit = 0;
-        let totalZikir = parseInt(localStorage.getItem('total_zikir_global')) || 0;
-        document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
+        let totalGlobal = parseInt(localStorage.getItem('total_zikir_global')) || 0;
+        document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
 
         function showPage(pageId) {
-            ['homePage', 'zikirMenuPage', 'counterPage'].forEach(p => document.getElementById(p).classList.add('hidden'));
+            // Sembunyi semua
+            ['homePage', 'zikirMenuPage', 'counterPage', 'prayerInfo'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('hidden');
+            });
+
+            // Tunjukkan page yang dipinta
             document.getElementById(pageId).classList.remove('hidden');
+
+            // Header/Info Box hanya muncul di Home & Menu Zikir
+            if (pageId === 'homePage' || pageId === 'zikirMenuPage') {
+                document.getElementById('prayerInfo').classList.remove('hidden');
+            }
         }
 
         function startZikir(title, limit, arabic) {
             showPage('counterPage');
-            document.getElementById('zikirTitle').innerText = title;
+            document.getElementById('zikirTitle').innerText = title.toUpperCase();
             document.getElementById('arabicText').innerText = arabic;
             currentCount = limit;
             initialLimit = limit;
@@ -147,19 +173,37 @@
         function decrement() {
             if (currentCount > 0) {
                 currentCount--;
-                totalZikir++;
-                localStorage.setItem('total_zikir_global', totalZikir);
-                document.getElementById('overallTotal').innerText = `Total: ${totalZikir}`;
-                if (navigator.vibrate) navigator.vibrate(40); 
+                totalGlobal++;
+                localStorage.setItem('total_zikir_global', totalGlobal);
+                document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
+                
+                if (navigator.vibrate) navigator.vibrate(40);
                 updateDisplay();
+
                 if (currentCount === 0) {
-                    setTimeout(() => { alert("Alhamdulillah!"); showPage('zikirMenuPage'); }, 200);
+                    setTimeout(() => {
+                        alert("Alhamdulillah, Selesai!");
+                        showPage('zikirMenuPage');
+                    }, 200);
                 }
             }
         }
 
-        function updateDisplay() { document.getElementById('countDisplay').innerText = currentCount; }
-        function resetCount() { if(confirm("Reset?")) { currentCount = initialLimit; updateDisplay(); } }
+        function updateDisplay() {
+            document.getElementById('countDisplay').innerText = currentCount;
+        }
+
+        function resetCount() {
+            if(confirm("Mula semula kiraan zikir ini?")) {
+                currentCount = initialLimit;
+                updateDisplay();
+            }
+        }
+
+        // PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
     </script>
 </body>
 </html>
