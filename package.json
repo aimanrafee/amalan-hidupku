@@ -1,0 +1,12 @@
+{
+  "name": "amalan-hidupku",
+  "version": "1.0.0",
+  "description": "Bot Telegram Amalan Hidupku",
+  "main": "bot.js",
+  "dependencies": {
+    "telegraf": "^4.16.3"
+  },
+  "scripts": {
+    "start": "node bot.js"
+  }
+}
