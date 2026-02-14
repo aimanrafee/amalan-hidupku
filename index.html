@@ -65,17 +65,17 @@
     </section>
 
     <section id="quranMenuPage" class="hidden px-6 max-w-md mx-auto">
-        <h2 class="text-xl font-black text-slate-800 mb-4">AL-QURAN</h2>
+        <h2 class="text-xl font-black text-slate-800 mb-4 tracking-tighter">AL-QURAN DIGITAL</h2>
         <div id="surahListContainer" class="space-y-4 h-[70vh] overflow-y-auto custom-scroll pr-2"></div>
     </section>
 
     <div id="surahReaderPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-[60] flex flex-col">
         <header class="p-6 flex justify-between items-center border-b border-white/50">
             <button onclick="showPage('quranMenuPage')" class="w-10 h-10 neu-card flex items-center justify-center neu-btn">✕</button>
-            <h2 id="readerTitle" class="font-black text-xs uppercase tracking-widest">MEMBACA</h2>
+            <h2 id="readerTitle" class="font-black text-xs uppercase tracking-widest text-emerald-800">MEMBACA</h2>
             <div class="w-10"></div>
         </header>
-        <div id="quranContent" class="flex-1 overflow-y-auto p-6 space-y-6 pb-24"></div>
+        <div id="quranContent" class="flex-1 overflow-y-auto p-6 space-y-6 pb-24 custom-scroll"></div>
     </div>
 
     <div id="counterPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-50 flex flex-col items-center justify-center p-6">
@@ -87,7 +87,8 @@
     </div>
 
     <script>
-        const BASE_URL = "https://cdn.jsdelivr.net/gh/aimanrafee/my-quran-API@main";
+        // MENGGUNAKAN RAW GITHUB UNTUK ELAK HAD 50MB
+        const BASE_URL = "https://raw.githubusercontent.com/aimanrafee/my-quran-API/main";
         let semuaSurah = [];
 
         function showPage(id) {
@@ -102,47 +103,77 @@
         function startZikir(t, l, a) { showPage('counterPage'); document.getElementById('arabicText').innerText = a; count = l; document.getElementById('countDisplay').innerText = count; }
         function decrement() { if(count > 0) { count--; document.getElementById('countDisplay').innerText = count; if(navigator.vibrate) navigator.vibrate(40); if(count===0) { alert("Alhamdulillah!"); showPage('zikirMenuPage'); } } }
 
-        // QURAN LOGIC
+        // QURAN MENU LOGIC
         async function showQuranMenu() {
             showPage('quranMenuPage');
+            const container = document.getElementById('surahListContainer');
+            
             if (semuaSurah.length === 0) {
-                const res = await fetch(`${BASE_URL}/chapters/all.json`);
-                const data = await res.json();
-                semuaSurah = data.chapters;
-                document.getElementById('surahListContainer').innerHTML = semuaSurah.map(s => `
-                    <div onclick="muatAyatSurah(${s.id}, '${s.name_complex}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 neu-inset flex items-center justify-center text-xs font-bold">${s.id}</div>
-                            <h3 class="font-bold text-sm">${s.name_complex}</h3>
+                container.innerHTML = '<p class="text-center py-10 italic">Memuatkan senarai surah...</p>';
+                try {
+                    const res = await fetch(`${BASE_URL}/chapters/all.json`);
+                    if (!res.ok) throw new Error("Gagal ambil all.json (404)");
+                    
+                    const data = await res.json();
+                    semuaSurah = data.chapters;
+                    
+                    container.innerHTML = semuaSurah.map(s => `
+                        <div onclick="muatAyatSurah(${s.id}, '${s.name_complex}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn mb-2">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 neu-inset flex items-center justify-center text-xs font-bold text-emerald-700">${s.id}</div>
+                                <div>
+                                    <h3 class="font-bold text-sm text-slate-700">${s.name_complex}</h3>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">${s.verses_count} Ayat</p>
+                                </div>
+                            </div>
+                            <span class="text-emerald-500 font-bold">→</span>
                         </div>
-                        <span class="arabic text-lg text-emerald-600">${s.name_arabic}</span>
-                    </div>
-                `).join('');
+                    `).join('');
+                } catch(e) { 
+                    container.innerHTML = `<div class="p-6 text-center text-rose-500 text-xs">Ralat: ${e.message}<br>Sila pastikan fail <b>all.json</b> sudah di-push ke GitHub.</div>`; 
+                }
             }
         }
 
+        // QURAN READER LOGIC
         async function muatAyatSurah(id, nama) {
             showPage('surahReaderPage');
             document.getElementById('readerTitle').innerText = nama.toUpperCase();
             const container = document.getElementById('quranContent');
-            container.innerHTML = '<p class="text-center py-20 italic">Memuatkan...</p>';
+            container.innerHTML = '<p class="text-center py-20 italic text-slate-500">Memuatkan kalamullah...</p>';
+            
             try {
                 const res = await fetch(`${BASE_URL}/chapters/${id}.json`);
                 const data = await res.json();
                 container.innerHTML = '';
-                if(id !== 1 && id !== 9) container.innerHTML = '<p class="arabic text-2xl text-center my-6">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>';
+
+                // Bismillah
+                if(id !== 1 && id !== 9) {
+                    container.innerHTML = '<p class="arabic text-3xl text-center my-8 text-emerald-800">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>';
+                }
                 
-                // MAPPING BERDASARKAN FAIL 1.JSON ANDA
+                // Papar ayat berdasarkan struktur verses
                 data.verses.forEach(v => {
+                    // Cari terjemahan BM (id 39)
                     const msTrans = v.translations.find(t => t.resource_id === 39)?.text || "Tiada terjemahan";
-                    container.innerHTML += `
-                        <div class="neu-card p-6 mb-4">
-                            <p class="text-[10px] font-bold text-amber-600 mb-2">AYAT ${v.verse_number}</p>
-                            <p class="arabic text-2xl text-emerald-900 text-right leading-[2] mb-4">${v.text_uthmani}</p>
-                            <p class="text-xs text-slate-600 leading-relaxed">${msTrans}</p>
-                        </div>`;
+                    
+                    const verseDiv = document.createElement('div');
+                    verseDiv.className = "neu-card p-6 mb-6 mx-1";
+                    verseDiv.innerHTML = `
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="neu-inset px-3 py-1 text-[10px] font-bold text-amber-600">AYAT ${v.verse_number}</span>
+                        </div>
+                        <p class="arabic text-3xl text-emerald-950 text-right leading-[2.8] mb-4">${v.text_uthmani}</p>
+                        <div class="h-[1px] bg-slate-200 w-full mb-4 opacity-50"></div>
+                        <p class="text-sm text-slate-600 leading-relaxed font-medium">${msTrans}</p>
+                    `;
+                    container.appendChild(verseDiv);
                 });
-            } catch(e) { container.innerHTML = '<p class="text-center text-rose-500 py-20">Ralat data.</p>'; }
+                
+                container.scrollTop = 0;
+            } catch(e) { 
+                container.innerHTML = `<p class="text-center text-rose-500 py-20 italic">Gagal memuatkan ayat surah ini.</p>`; 
+            }
         }
     </script>
 </body>
