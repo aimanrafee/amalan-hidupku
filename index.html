@@ -15,6 +15,7 @@
         }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
         
+        /* Neumorphism Design System */
         .neu-card {
             background: #f0f4f8;
             border-radius: 35px;
@@ -93,12 +94,29 @@
             <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Pilih Zikir</h2>
             <div id="overallTotal" class="neu-inset px-4 py-2 text-xs font-black text-emerald-600">Total: 0</div>
         </div>
+        
         <div onclick="startZikir('1. Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
             <div><h3 class="font-bold text-slate-800 text-sm">1. Tasbih</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
             <span class="text-emerald-500 font-bold">→</span>
         </div>
+
         <div onclick="startZikir('2. Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
             <div><h3 class="font-bold text-slate-800 text-sm">2. Tahmid</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+
+        <div onclick="startZikir('3. Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">3. Takbir</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+
+        <div onclick="startZikir('4. Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">4. Tahlil</h3><p class="text-[10px] text-slate-400 font-bold uppercase">100 Kali</p></div>
+            <span class="text-emerald-500 font-bold">→</span>
+        </div>
+
+        <div onclick="startZikir('5. Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div><h3 class="font-bold text-slate-800 text-sm">5. Tasbih Mizan</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
             <span class="text-emerald-500 font-bold">→</span>
         </div>
     </section>
@@ -120,9 +138,11 @@
         <button onclick="showPage('zikirMenuPage')" class="absolute top-10 left-8 w-12 h-12 neu-card flex items-center justify-center font-bold text-slate-400 neu-btn">✕</button>
         <h2 id="zikirTitle" class="text-xs font-bold text-slate-400 uppercase tracking-[0.4em] mb-4 text-center">ZIKIR</h2>
         <p id="arabicText" class="arabic text-4xl text-emerald-700 mb-16 text-center leading-relaxed px-8"></p>
+        
         <div onclick="decrement()" class="w-72 h-72 neu-circle flex items-center justify-center cursor-pointer neu-btn border-[12px] border-white/30">
             <span id="countDisplay" class="text-8xl font-black text-emerald-600 tracking-tighter">0</span>
         </div>
+        
         <button onclick="resetCurrentZikir()" class="mt-12 neu-card px-10 py-3 text-[10px] font-black text-rose-400 tracking-widest uppercase neu-btn">Reset</button>
     </div>
 
@@ -132,8 +152,7 @@
             <h2 id="readerTitle" class="font-black text-slate-800 uppercase tracking-widest text-xs">MEMBACA</h2>
             <div class="w-10"></div>
         </header>
-        <div id="quranContent" class="flex-1 overflow-y-auto custom-scroll p-6 space-y-12 pb-24 text-right">
-            </div>
+        <div id="quranContent" class="flex-1 overflow-y-auto custom-scroll p-6 space-y-12 pb-24 text-right"></div>
     </div>
 
     <script>
@@ -151,7 +170,7 @@
             }
         }
 
-        // --- ZIKIR LOGIC ---
+        // --- ZIKIR LOGIC (COUNTDOWN) ---
         let currentCount = 0;
         let initialLimit = 0;
         let totalGlobal = parseInt(localStorage.getItem('total_zikir_global')) || 0;
@@ -174,15 +193,20 @@
                 document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
                 document.getElementById('countDisplay').innerText = currentCount;
                 
+                // Getaran (Vibration) pada peranti mudah alih
                 if (navigator.vibrate) navigator.vibrate(40);
+                
                 if (currentCount === 0) {
-                    setTimeout(() => { alert("Alhamdulillah!"); showPage('zikirMenuPage'); }, 200);
+                    setTimeout(() => { 
+                        alert("Alhamdulillah, Selesai!"); 
+                        showPage('zikirMenuPage'); 
+                    }, 200);
                 }
             }
         }
 
         function resetCurrentZikir() {
-            if(confirm("Mula semula?")) {
+            if(confirm("Mula semula kiraan zikir ini?")) {
                 currentCount = initialLimit;
                 document.getElementById('countDisplay').innerText = currentCount;
             }
@@ -201,7 +225,7 @@
                 allSurahs = data.data;
                 renderSurahs(allSurahs);
             } catch (err) {
-                document.getElementById('surahListContainer').innerHTML = `<p class="text-rose-400 text-center">Tiada Internet.</p>`;
+                document.getElementById('surahListContainer').innerHTML = `<p class="text-rose-400 text-center py-10 font-bold">Tiada sambungan internet untuk Al-Quran.</p>`;
             }
         }
 
@@ -238,12 +262,14 @@
                 const data = await res.json();
                 container.innerHTML = '';
 
+                // Bismillah (kecuali Al-Fatihah & At-Tawbah)
                 if (num !== 1 && num !== 9) {
                     container.innerHTML += `<p class="arabic text-3xl text-center text-emerald-800 mb-10">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>`;
                 }
 
                 data.data.ayahs.forEach(ayah => {
                     let text = ayah.text;
+                    // Buang Bismillah dari teks ayat 1 jika sudah dipaparkan di atas
                     if (ayah.numberInSurah === 1 && num !== 1 && num !== 9) {
                         text = text.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "");
                     }
@@ -258,7 +284,7 @@
                 });
                 container.scrollTop = 0;
             } catch (err) {
-                container.innerHTML = `<p class="text-center text-rose-400 py-20">Ralat sambungan.</p>`;
+                container.innerHTML = `<p class="text-center text-rose-400 py-20 font-bold">Ralat sambungan internet.</p>`;
             }
         }
     </script>
