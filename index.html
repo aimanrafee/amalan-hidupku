@@ -15,7 +15,6 @@
         }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
         
-        /* Neumorphism Design System */
         .neu-card {
             background: #f0f4f8;
             border-radius: 35px;
@@ -35,7 +34,6 @@
             border-radius: 50%;
             box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
         }
-        /* Custom scrollbar untuk pembaca surah */
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #d1d9e6; border-radius: 10px; }
@@ -52,111 +50,56 @@
                     <p class="text-[10px] font-bold text-amber-600 tracking-widest uppercase">Platform Islam Digital</p>
                 </div>
             </div>
-            <div class="flex gap-2">
-                <button class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🔗</button>
-                <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🏠</button>
-            </div>
+            <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🏠</button>
         </div>
 
         <div id="prayerInfo" class="neu-card p-6 mb-8 border-2 border-white/50">
             <div class="text-center mb-4">
                 <p id="todayDate" class="text-[11px] font-black text-emerald-700 uppercase tracking-tighter mb-1"></p>
-                <div class="neu-inset px-4 py-1 inline-block text-[9px] font-bold text-slate-400 italic">
-                    📍 Kuala Lumpur, Putrajaya
-                </div>
+                <div class="neu-inset px-4 py-1 inline-block text-[9px] font-bold text-slate-400 italic">📍 Kuala Lumpur, Putrajaya</div>
             </div>
             <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-3xl font-black text-slate-800 tracking-tighter">Zohor</h2>
                     <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Akan Datang</p>
                 </div>
-                <div class="neu-inset px-6 py-4 text-2xl font-black text-amber-600 tracking-tighter">
-                    -02:14:09
-                </div>
+                <div class="neu-inset px-6 py-4 text-2xl font-black text-amber-600 tracking-tighter">-02:14:09</div>
             </div>
         </div>
     </header>
 
     <main id="homePage" class="px-8 grid grid-cols-2 gap-6 max-w-md mx-auto">
         <h2 class="col-span-2 text-xs font-bold text-slate-400 uppercase tracking-widest ml-2">Menu Utama</h2>
-        
         <div onclick="showPage('zikirMenuPage')" class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📿</div>
             <h3 class="font-bold text-slate-700 text-sm">Zikir</h3>
         </div>
-        
-        <div onclick="showPage('quranMenuPage')" class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn">
+        <div onclick="loadSurahList()" class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📖</div>
             <h3 class="font-bold text-slate-700 text-sm">Al-Quran</h3>
         </div>
-
-        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn opacity-60">
-            <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">🤲</div>
-            <h3 class="font-bold text-slate-700 text-sm">Doa</h3>
-        </div>
-        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn opacity-60">
-            <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📝</div>
-            <h3 class="font-bold text-slate-700 text-sm">Nota</h3>
-        </div>
+        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer opacity-60"><div class="text-2xl mb-4">🤲</div><h3 class="text-sm">Doa</h3></div>
+        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer opacity-60"><div class="text-2xl mb-4">📝</div><h3 class="text-sm">Nota</h3></div>
     </main>
 
     <section id="zikirMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Pilih Zikir</h2>
-            <div id="overallTotal" class="neu-inset px-4 py-2 text-xs font-black text-emerald-600">Total: 0</div>
-        </div>
-        
-        <div onclick="startZikir('1. Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div><h3 class="font-bold text-slate-800 text-sm">1. Tasbih</h3><p class="text-xs text-slate-400">33 Kali</p></div>
+        <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight mb-4">Pilih Zikir</h2>
+        <div onclick="startZikir('Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <h3 class="font-bold text-slate-800 text-sm">1. Tasbih</h3>
             <span class="text-emerald-500 font-bold">→</span>
         </div>
-        <div onclick="startZikir('2. Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div><h3 class="font-bold text-slate-800 text-sm">2. Tahmid</h3><p class="text-xs text-slate-400">33 Kali</p></div>
-            <span class="text-emerald-500 font-bold">→</span>
-        </div>
-        <div onclick="startZikir('3. Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div><h3 class="font-bold text-slate-800 text-sm">3. Takbir</h3><p class="text-xs text-slate-400">33 Kali</p></div>
-            <span class="text-emerald-500 font-bold">→</span>
-        </div>
-        <div onclick="startZikir('4. Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div><h3 class="font-bold text-slate-800 text-sm">4. Tahlil</h3><p class="text-xs text-slate-400">100 Kali</p></div>
-            <span class="text-emerald-500 font-bold">→</span>
-        </div>
-    </section>
+        </section>
 
-    <section id="quranMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Al-Quran</h2>
-            <div class="neu-inset px-4 py-2 text-[10px] font-black text-emerald-600">SURAH PILIHAN</div>
-        </div>
-        
-        <div onclick="openSurah(67, 'Al-Mulk')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">67</div>
-                <div><h3 class="font-bold text-slate-800 text-sm">Al-Mulk</h3><p class="text-[10px] text-slate-400">30 Ayat</p></div>
+    <section id="quranMenuPage" class="hidden px-6 max-w-md mx-auto">
+        <div class="flex flex-col gap-4 mb-6">
+            <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Al-Quran (114)</h2>
+            <div class="neu-inset px-4 py-3 flex items-center gap-3">
+                <span>🔍</span>
+                <input type="text" id="surahSearch" onkeyup="filterSurah()" placeholder="Cari Nama Surah..." class="bg-transparent border-none outline-none text-sm font-bold text-slate-600 w-full">
             </div>
-            <span class="arabic text-xl text-emerald-600 font-bold">الملك</span>
         </div>
-        <div onclick="openSurah(56, 'Al-Waqiah')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">56</div>
-                <div><h3 class="font-bold text-slate-800 text-sm">Al-Waqiah</h3><p class="text-[10px] text-slate-400">96 Ayat</p></div>
-            </div>
-            <span class="arabic text-xl text-emerald-600 font-bold">الواقعة</span>
-        </div>
-        <div onclick="openSurah(18, 'Al-Kahfi')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">18</div>
-                <div><h3 class="font-bold text-slate-800 text-sm">Al-Kahfi</h3><p class="text-[10px] text-slate-400">110 Ayat</p></div>
-            </div>
-            <span class="arabic text-xl text-emerald-600 font-bold">الكهف</span>
-        </div>
-        <div onclick="openSurah(36, 'Yasin')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">36</div>
-                <div><h3 class="font-bold text-slate-800 text-sm">Yasin</h3><p class="text-[10px] text-slate-400">83 Ayat</p></div>
-            </div>
-            <span class="arabic text-xl text-emerald-600 font-bold">يس</span>
+        <div id="surahListContainer" class="space-y-4 h-[50vh] overflow-y-auto custom-scroll pr-2">
+            <p class="text-center text-slate-400 py-10">Memuatkan senarai surah...</p>
         </div>
     </section>
 
@@ -167,119 +110,128 @@
         <div onclick="decrement()" class="w-72 h-72 neu-circle flex items-center justify-center cursor-pointer neu-btn border-[12px] border-white/30">
             <span id="countDisplay" class="text-8xl font-black text-emerald-600 tracking-tighter">33</span>
         </div>
-        <button onclick="resetCount()" class="mt-16 neu-card px-10 py-4 text-[10px] font-black text-rose-400 tracking-widest uppercase neu-btn">Reset</button>
     </div>
 
     <div id="surahReaderPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-[60] flex flex-col">
         <header class="p-6 flex justify-between items-center bg-[#f0f4f8] border-b border-white/50">
             <button onclick="showPage('quranMenuPage')" class="w-10 h-10 neu-card flex items-center justify-center font-bold text-slate-400 neu-btn">✕</button>
-            <h2 id="readerTitle" class="font-black text-slate-800 uppercase tracking-widest text-sm">SURAH</h2>
+            <h2 id="readerTitle" class="font-black text-slate-800 uppercase tracking-widest text-xs">MEMBACA</h2>
             <div class="w-10"></div>
         </header>
-        <div id="quranContent" class="flex-1 overflow-y-auto custom-scroll p-6 space-y-12 pb-24">
-            <p class="text-center text-slate-400 italic py-20">Memuatkan surah...</p>
+        <div id="quranContent" class="flex-1 overflow-y-auto custom-scroll p-6 space-y-12 pb-24 text-right">
+            <p class="text-center text-slate-400 italic py-20">Memuatkan ayat...</p>
         </div>
     </div>
 
     <script>
-        // --- DATA & NAVIGASI ---
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ms-MY', options).toUpperCase();
-
-        let currentCount = 0;
-        let initialLimit = 0;
-        let totalGlobal = parseInt(localStorage.getItem('total_zikir_global')) || 0;
-        document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
+        // NAVIGATION & STATUS
+        const dateOpt = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ms-MY', dateOpt).toUpperCase();
 
         function showPage(pageId) {
-            const allPages = ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage', 'prayerInfo'];
-            allPages.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) el.classList.add('hidden');
-            });
-
+            const pages = ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage', 'prayerInfo'];
+            pages.forEach(id => document.getElementById(id)?.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
-            
-            // Tunjukkan prayerInfo hanya pada menu utama atau menu pilihan
             if (['homePage', 'zikirMenuPage', 'quranMenuPage'].includes(pageId)) {
                 document.getElementById('prayerInfo').classList.remove('hidden');
             }
         }
 
-        // --- FUNGSI ZIKIR ---
-        function startZikir(title, limit, arabic) {
-            showPage('counterPage');
-            document.getElementById('zikirTitle').innerText = title.toUpperCase();
-            document.getElementById('arabicText').innerText = arabic;
-            currentCount = limit;
-            initialLimit = limit;
-            updateDisplay();
-        }
+        // QURAN LOGIC
+        let allSurahs = [];
 
-        function decrement() {
-            if (currentCount > 0) {
-                currentCount--;
-                totalGlobal++;
-                localStorage.setItem('total_zikir_global', totalGlobal);
-                document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
-                if (navigator.vibrate) navigator.vibrate(40);
-                updateDisplay();
-                if (currentCount === 0) {
-                    setTimeout(() => { alert("Alhamdulillah, Selesai!"); showPage('zikirMenuPage'); }, 200);
-                }
+        async function loadSurahList() {
+            showPage('quranMenuPage');
+            const container = document.getElementById('surahListContainer');
+            if (allSurahs.length > 0) return; // Elak load banyak kali
+
+            try {
+                const res = await fetch('https://api.alquran.cloud/v1/surah');
+                const data = await res.json();
+                allSurahs = data.data;
+                renderSurahs(allSurahs);
+            } catch (err) {
+                container.innerHTML = `<p class="text-rose-400 text-center">Gagal memuatkan senarai surah.</p>`;
             }
         }
 
-        function updateDisplay() { document.getElementById('countDisplay').innerText = currentCount; }
-        function resetCount() { if(confirm("Mula semula?")) { currentCount = initialLimit; updateDisplay(); } }
+        function renderSurahs(list) {
+            const container = document.getElementById('surahListContainer');
+            container.innerHTML = list.map(s => `
+                <div onclick="openSurah(${s.number}, '${s.englishName}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn surah-item">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">${s.number}</div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">${s.englishName}</h3>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">${s.revelationType} • ${s.numberOfAyahs} Ayat</p>
+                        </div>
+                    </div>
+                    <span class="arabic text-xl text-emerald-600 font-bold">${s.name}</span>
+                </div>
+            `).join('');
+        }
 
-        // --- FUNGSI QURAN ---
+        function filterSurah() {
+            const val = document.getElementById('surahSearch').value.toLowerCase();
+            const filtered = allSurahs.filter(s => 
+                s.englishName.toLowerCase().includes(val) || 
+                s.number.toString().includes(val)
+            );
+            renderSurahs(filtered);
+        }
+
         async function openSurah(num, name) {
             showPage('surahReaderPage');
-            document.getElementById('readerTitle').innerText = name;
+            document.getElementById('readerTitle').innerText = name.toUpperCase();
             const container = document.getElementById('quranContent');
-            container.innerHTML = `<p class="text-center text-slate-400 italic py-20">Sedang memuatkan Surah ${name}...</p>`;
+            container.innerHTML = `<p class="text-center text-slate-400 italic py-20">Bismillah...</p>`;
 
             try {
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
                 const data = await res.json();
-                
-                container.innerHTML = ''; // Clear loading text
-                
-                // Tambah Bismillah (kecuali At-Taubah, tapi kita cuma guna surah pilihan)
-                if (num !== 1) {
-                    const bismillah = document.createElement('p');
-                    bismillah.className = "arabic text-3xl text-center text-emerald-800 mb-10";
-                    bismillah.innerText = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
-                    container.appendChild(bismillah);
+                container.innerHTML = '';
+
+                // Add Bismillah
+                if (num !== 1 && num !== 9) {
+                    container.innerHTML += `<p class="arabic text-3xl text-center text-emerald-800 mb-10">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>`;
                 }
 
                 data.data.ayahs.forEach(ayah => {
-                    const div = document.createElement('div');
-                    div.className = "space-y-4 text-right";
-                    
-                    // Bersihkan teks ayat daripada Bismillah jika ia ayat pertama
-                    let ayahText = ayah.text;
+                    let text = ayah.text;
                     if (ayah.numberInSurah === 1 && num !== 1 && num !== 9) {
-                        ayahText = ayahText.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "");
+                        text = text.replace("بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", "");
                     }
-
-                    div.innerHTML = `
-                        <p class="arabic text-3xl text-emerald-900 leading-[2.8]">${ayahText} <span class="text-sm font-bold text-amber-600 neu-inset px-2 py-1 rounded-full ml-2">${ayah.numberInSurah}</span></p>
-                        <hr class="border-white/50 opacity-50">
+                    container.innerHTML += `
+                        <div class="mb-10">
+                            <p class="arabic text-3xl text-emerald-900 leading-[2.8]">${text} 
+                                <span class="text-sm font-bold text-amber-600 neu-inset px-2 py-1 rounded-full ml-2">${ayah.numberInSurah}</span>
+                            </p>
+                            <hr class="border-white/50 opacity-50 mt-4">
+                        </div>
                     `;
-                    container.appendChild(div);
                 });
-                
-                container.scrollTop = 0; // Reset scroll ke atas
+                container.scrollTop = 0;
             } catch (err) {
-                container.innerHTML = `<p class="text-center text-rose-400 py-20">Gagal memuatkan surah. Sila periksa sambungan internet.</p>`;
+                container.innerHTML = `<p class="text-center text-rose-400 py-20">Ralat sambungan.</p>`;
             }
         }
 
-        // PWA Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
+        // ZIKIR LOGIC (Simple)
+        let currentCount = 0;
+        function startZikir(title, limit, arabic) {
+            showPage('counterPage');
+            document.getElementById('zikirTitle').innerText = title;
+            document.getElementById('arabicText').innerText = arabic;
+            currentCount = limit;
+            document.getElementById('countDisplay').innerText = currentCount;
+        }
+        function decrement() {
+            if (currentCount > 0) {
+                currentCount--;
+                document.getElementById('countDisplay').innerText = currentCount;
+                if (navigator.vibrate) navigator.vibrate(40);
+                if (currentCount === 0) { alert("Alhamdulillah!"); showPage('zikirMenuPage'); }
+            }
         }
     </script>
 </body>
