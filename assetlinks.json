@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.aimanrafee.amalan_hidupku",
+    "sha256_cert_fingerprints": ["E8:BD:C6:D7:8F:6D:FA:8D:01:8B:9E:06:A2:2E:01:49:BE:20:DA:7B:56:92:5E:AE:16:E2:85:67:07:C2:C2:A2"]
+  }
+}]
