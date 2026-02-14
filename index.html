@@ -3,60 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amalan Hidupku - MyNur Qalby</title>
-    <link rel="manifest" href="manifest.json">
+    <title>Amalan Hidupku</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #f0f4f8;
-            --primary-green: #0d9488;
-            --gold-accent: #b4944c;
-            --shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
-            --inner-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
-        }
-
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-color);
-            -webkit-tap-highlight-color: transparent;
-            color: #333;
-        }
-
+        :root { --bg: #f0f4f8; --green: #0d9488; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); -webkit-tap-highlight-color: transparent; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
-        
-        /* Neumorphism Design System */
-        .neu-card {
-            background: var(--bg-color);
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .neu-inset {
-            background: var(--bg-color);
-            border-radius: 20px;
-            box-shadow: var(--inner-shadow);
-        }
-        .neu-btn:active {
-            box-shadow: var(--inner-shadow);
-            transform: scale(0.97);
-        }
-        .neu-circle {
-            background: var(--bg-color);
-            border-radius: 50%;
-            box-shadow: var(--shadow);
-        }
-
-        /* Custom Scrollbar */
+        .neu-card { background: var(--bg); border-radius: 30px; box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff; }
+        .neu-inset { background: var(--bg); border-radius: 20px; box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff; }
+        .neu-btn:active { transform: scale(0.97); box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; }
         .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #d1d9e6; border-radius: 10px; }
-
-        .tafsir-box {
-            margin-top: 15px; padding: 20px; border-radius: 20px;
-            background: #eef2f7; font-size: 14px; display: none; 
-            line-height: 1.8; border-left: 4px solid var(--primary-green);
-        }
     </style>
 </head>
 <body class="min-h-screen pb-10">
@@ -66,30 +24,15 @@
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 neu-card flex items-center justify-center text-xl">🕌</div>
                 <div>
-                    <h1 class="text-lg font-extrabold text-emerald-800 leading-tight">Amalan Hidupku</h1>
-                    <p class="text-[10px] font-bold text-amber-600 tracking-widest uppercase">Platform Islam Digital</p>
+                    <h1 class="text-lg font-extrabold text-emerald-800">Amalan Hidupku</h1>
+                    <p class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Platform Islam Digital</p>
                 </div>
             </div>
-            <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center text-sm neu-btn">🏠</button>
-        </div>
-
-        <div id="prayerInfo" class="neu-card p-6 mb-8">
-            <div class="text-center mb-4">
-                <p id="todayDate" class="text-[11px] font-black text-emerald-700 uppercase tracking-tighter mb-1"></p>
-                <div class="neu-inset px-4 py-1 inline-block text-[9px] font-bold text-slate-400 italic">📍 Kuala Lumpur, Putrajaya</div>
-            </div>
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-3xl font-black text-slate-800 tracking-tighter">Zohor</h2>
-                    <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Akan Datang</p>
-                </div>
-                <div class="neu-inset px-6 py-4 text-2xl font-black text-amber-600 tracking-tighter">-02:14:09</div>
-            </div>
+            <button onclick="showPage('homePage')" class="w-10 h-10 neu-card flex items-center justify-center neu-btn">🏠</button>
         </div>
     </header>
 
     <main id="homePage" class="px-8 grid grid-cols-2 gap-6 max-w-md mx-auto">
-        <h2 class="col-span-2 text-xs font-bold text-slate-400 uppercase tracking-widest ml-2">Menu Utama</h2>
         <div onclick="showPage('zikirMenuPage')" class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer neu-btn">
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📿</div>
             <h3 class="font-bold text-slate-700 text-sm">Zikir</h3>
@@ -98,220 +41,108 @@
             <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📖</div>
             <h3 class="font-bold text-slate-700 text-sm">Al-Quran</h3>
         </div>
-        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer opacity-60 neu-btn">
-            <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">🤲</div>
-            <h3 class="text-sm font-bold text-slate-700">Doa</h3>
-        </div>
-        <div class="neu-card p-8 flex flex-col items-center justify-center cursor-pointer opacity-60 neu-btn">
-            <div class="w-14 h-14 neu-inset flex items-center justify-center text-2xl mb-4">📝</div>
-            <h3 class="text-sm font-bold text-slate-700">Nota</h3>
-        </div>
     </main>
 
     <section id="zikirMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Pilih Zikir</h2>
-            <div id="overallTotal" class="neu-inset px-4 py-2 text-xs font-black text-emerald-600">Total: 0</div>
-        </div>
+        <h2 class="text-xl font-black text-slate-800 uppercase">Pilih Zikir</h2>
         <div id="zikirList" class="space-y-4">
-    <div onclick="startZikir('1. Tasbih', 33, 'سُبْحَانَ ٱللَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-        <div><h3 class="font-bold text-slate-800 text-sm">1. Tasbih</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
-        <span class="text-emerald-500 font-bold">→</span>
-    </div>
-
-    <div onclick="startZikir('2. Tahmid', 33, 'ٱلْحَمْدُ لِلَّٰهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-        <div><h3 class="font-bold text-slate-800 text-sm">2. Tahmid</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
-        <span class="text-emerald-500 font-bold">→</span>
-    </div>
-
-    <div onclick="startZikir('3. Takbir', 33, 'ٱللَّٰهُ أَكْبَرُ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-        <div><h3 class="font-bold text-slate-800 text-sm">3. Takbir</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
-        <span class="text-emerald-500 font-bold">→</span>
-    </div>
-
-    <div onclick="startZikir('4. Tahlil', 100, 'لَا إِلٰهَ إِلَّا الله')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-        <div><h3 class="font-bold text-slate-800 text-sm">4. Tahlil</h3><p class="text-[10px] text-slate-400 font-bold uppercase">100 Kali</p></div>
-        <span class="text-emerald-500 font-bold">→</span>
-    </div>
-
-    <div onclick="startZikir('5. Tasbih Mizan', 33, 'سُبْحَانَ اللهِ وَبِحَمْدِهِ')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-        <div><h3 class="font-bold text-slate-800 text-sm">5. Tasbih Mizan</h3><p class="text-[10px] text-slate-400 font-bold uppercase">33 Kali</p></div>
-        <span class="text-emerald-500 font-bold">→</span>
-    </div>
-</div>
+            <script>
+                const listZikir = [
+                    {t: '1. Tasbih', c: 33, a: 'سُبْحَانَ ٱللَّٰهِ'},
+                    {t: '2. Tahmid', c: 33, a: 'ٱلْحَمْدُ لِلَّٰهِ'},
+                    {t: '3. Takbir', c: 33, a: 'ٱللَّٰهُ أَكْبَرُ'},
+                    {t: '4. Tahlil', c: 100, a: 'لَا إِلٰهَ إِلَّا الله'},
+                    {t: '5. Tasbih Mizan', c: 33, a: 'سُبْحَانَ اللهِ وَبِحَمْدِهِ'}
+                ];
+                document.write(listZikir.map(z => `
+                    <div onclick="startZikir('${z.t}', ${z.c}, '${z.a}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+                        <div><h3 class="font-bold text-sm">${z.t}</h3><p class="text-[10px] text-slate-400 font-bold">${z.c} KALI</p></div>
+                        <span class="text-emerald-500">→</span>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
     </section>
 
     <section id="quranMenuPage" class="hidden px-6 max-w-md mx-auto">
-        <div class="flex flex-col gap-4 mb-6">
-            <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight">Al-Quran</h2>
-            <div class="neu-inset px-4 py-3 flex items-center gap-3">
-                <span>🔍</span>
-                <input type="text" id="surahSearch" onkeyup="tapisSurah()" placeholder="Cari Nama Surah..." class="bg-transparent border-none outline-none text-sm font-bold text-slate-600 w-full">
-            </div>
-        </div>
-        <div id="surahListContainer" class="space-y-4 h-[60vh] overflow-y-auto custom-scroll pr-2">
-            </div>
+        <h2 class="text-xl font-black text-slate-800 mb-4">AL-QURAN</h2>
+        <div id="surahListContainer" class="space-y-4 h-[70vh] overflow-y-auto custom-scroll pr-2"></div>
     </section>
 
-    <div id="counterPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-50 flex flex-col items-center justify-center p-6">
-        <button onclick="showPage('zikirMenuPage')" class="absolute top-10 left-8 w-12 h-12 neu-card flex items-center justify-center font-bold text-slate-400 neu-btn">✕</button>
-        <h2 id="zikirTitle" class="text-xs font-bold text-slate-400 uppercase tracking-[0.4em] mb-4 text-center">ZIKIR</h2>
-        <p id="arabicText" class="arabic text-4xl text-emerald-700 mb-16 text-center leading-relaxed px-8"></p>
-        <div onclick="decrement()" class="w-72 h-72 neu-circle flex items-center justify-center cursor-pointer neu-btn border-[12px] border-white/30">
-            <span id="countDisplay" class="text-8xl font-black text-emerald-600 tracking-tighter">0</span>
-        </div>
-        <button onclick="resetCurrentZikir()" class="mt-12 neu-card px-10 py-3 text-[10px] font-black text-rose-400 tracking-widest uppercase neu-btn">Reset</button>
-    </div>
-
     <div id="surahReaderPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-[60] flex flex-col">
-        <header class="p-6 flex justify-between items-center bg-[#f0f4f8] border-b border-white/50">
-            <button onclick="showQuranMenu()" class="w-10 h-10 neu-card flex items-center justify-center font-bold text-slate-400 neu-btn">✕</button>
-            <h2 id="readerTitle" class="font-black text-slate-800 uppercase tracking-widest text-[10px]">MEMBACA</h2>
+        <header class="p-6 flex justify-between items-center border-b border-white/50">
+            <button onclick="showPage('quranMenuPage')" class="w-10 h-10 neu-card flex items-center justify-center neu-btn">✕</button>
+            <h2 id="readerTitle" class="font-black text-xs uppercase tracking-widest">MEMBACA</h2>
             <div class="w-10"></div>
         </header>
-        <div id="quranContent" class="flex-1 overflow-y-auto custom-scroll p-6 space-y-8 pb-24">
-            </div>
+        <div id="quranContent" class="flex-1 overflow-y-auto p-6 space-y-6 pb-24"></div>
+    </div>
+
+    <div id="counterPage" class="hidden fixed inset-0 bg-[#f0f4f8] z-50 flex flex-col items-center justify-center p-6">
+        <button onclick="showPage('zikirMenuPage')" class="absolute top-10 left-8 w-12 h-12 neu-card flex items-center justify-center neu-btn">✕</button>
+        <p id="arabicText" class="arabic text-4xl text-emerald-700 mb-16 text-center px-8"></p>
+        <div onclick="decrement()" class="w-64 h-64 neu-card rounded-full flex items-center justify-center cursor-pointer neu-btn border-[10px] border-white/30">
+            <span id="countDisplay" class="text-7xl font-black text-emerald-600">0</span>
+        </div>
     </div>
 
     <script>
         const BASE_URL = "https://cdn.jsdelivr.net/gh/aimanrafee/my-quran-API@main";
-        const dateOpt = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ms-MY', dateOpt).toUpperCase();
-
         let semuaSurah = [];
-        let currentTafsirData = null;
 
-        // --- NAVIGATION ---
-        function showPage(pageId) {
-            const pages = ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage'];
-            pages.forEach(id => document.getElementById(id)?.classList.add('hidden'));
-            
-            document.getElementById(pageId).classList.remove('hidden');
-            
-            // Tunjuk/Sembunyi Header & Prayer Info
-            if (['homePage', 'zikirMenuPage', 'quranMenuPage'].includes(pageId)) {
-                document.getElementById('mainHeader').classList.remove('hidden');
-            } else {
-                document.getElementById('mainHeader').classList.add('hidden');
-            }
+        function showPage(id) {
+            ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage'].forEach(p => 
+                document.getElementById(p)?.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById('mainHeader').classList.toggle('hidden', ['counterPage', 'surahReaderPage'].includes(id));
         }
 
-        // --- ZIKIR LOGIC ---
-        let currentCount = 0;
-        let initialLimit = 0;
-        let totalGlobal = parseInt(localStorage.getItem('total_zikir_global')) || 0;
-        document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
+        // ZIKIR LOGIC
+        let count = 0;
+        function startZikir(t, l, a) { showPage('counterPage'); document.getElementById('arabicText').innerText = a; count = l; document.getElementById('countDisplay').innerText = count; }
+        function decrement() { if(count > 0) { count--; document.getElementById('countDisplay').innerText = count; if(navigator.vibrate) navigator.vibrate(40); if(count===0) { alert("Alhamdulillah!"); showPage('zikirMenuPage'); } } }
 
-        function startZikir(title, limit, arabic) {
-            showPage('counterPage');
-            document.getElementById('zikirTitle').innerText = title.toUpperCase();
-            document.getElementById('arabicText').innerText = arabic;
-            currentCount = limit;
-            initialLimit = limit;
-            document.getElementById('countDisplay').innerText = currentCount;
-        }
-
-        function decrement() {
-            if (currentCount > 0) {
-                currentCount--;
-                totalGlobal++;
-                localStorage.setItem('total_zikir_global', totalGlobal);
-                document.getElementById('overallTotal').innerText = `Total: ${totalGlobal}`;
-                document.getElementById('countDisplay').innerText = currentCount;
-                if (navigator.vibrate) navigator.vibrate(40);
-                if (currentCount === 0) {
-                    setTimeout(() => { alert("Alhamdulillah, Selesai!"); showPage('zikirMenuPage'); }, 200);
-                }
-            }
-        }
-
-        function resetCurrentZikir() {
-            if(confirm("Mula semula kiraan zikir ini?")) {
-                currentCount = initialLimit;
-                document.getElementById('countDisplay').innerText = currentCount;
-            }
-        }
-
-        // --- QURAN LOGIC ---
+        // QURAN LOGIC
         async function showQuranMenu() {
             showPage('quranMenuPage');
             if (semuaSurah.length === 0) {
                 const res = await fetch(`${BASE_URL}/chapters/all.json`);
                 const data = await res.json();
                 semuaSurah = data.chapters;
-                renderSurahList(semuaSurah);
-            }
-        }
-
-        function renderSurahList(list) {
-            const container = document.getElementById('surahListContainer');
-            container.innerHTML = list.map(s => `
-                <div onclick="muatAyatSurah(${s.id}, '${s.name_complex}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 neu-inset flex items-center justify-center font-bold text-emerald-600 text-xs italic">${s.id}</div>
-                        <div>
-                            <h3 class="font-bold text-slate-800 text-sm">${s.name_complex}</h3>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">${s.translated_name.name} • ${s.verses_count} Ayat</p>
+                document.getElementById('surahListContainer').innerHTML = semuaSurah.map(s => `
+                    <div onclick="muatAyatSurah(${s.id}, '${s.name_complex}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 neu-inset flex items-center justify-center text-xs font-bold">${s.id}</div>
+                            <h3 class="font-bold text-sm">${s.name_complex}</h3>
                         </div>
+                        <span class="arabic text-lg text-emerald-600">${s.name_arabic}</span>
                     </div>
-                    <span class="arabic text-xl text-emerald-600 font-bold">${s.name_arabic}</span>
-                </div>
-            `).join('');
-        }
-
-        function tapisSurah() {
-            const k = document.getElementById('surahSearch').value.toLowerCase();
-            const hasil = semuaSurah.filter(s => s.name_complex.toLowerCase().includes(k) || s.translated_name.name.toLowerCase().includes(k));
-            renderSurahList(hasil);
+                `).join('');
+            }
         }
 
         async function muatAyatSurah(id, nama) {
             showPage('surahReaderPage');
             document.getElementById('readerTitle').innerText = nama.toUpperCase();
             const container = document.getElementById('quranContent');
-            container.innerHTML = '<p class="text-center text-slate-400 py-20 italic">Memuatkan Ayat...</p>';
-
+            container.innerHTML = '<p class="text-center py-20 italic">Memuatkan...</p>';
             try {
-                const [resAyat, resTafsir] = await Promise.all([
-                    fetch(`${BASE_URL}/chapters/${id}.json`),
-                    fetch(`${BASE_URL}/tafsir/ibnu-kathir-ms/${id}.json`)
-                ]);
-                const dataAyat = await resAyat.json();
-                currentTafsirData = await resTafsir.json();
+                const res = await fetch(`${BASE_URL}/chapters/${id}.json`);
+                const data = await res.json();
                 container.innerHTML = '';
-
-                // Bismillah Header
-                if (id !== 1 && id !== 9) {
-                    container.innerHTML += `<p class="arabic text-3xl text-center text-emerald-800 my-8">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>`;
-                }
-
-                dataAyat.verses.forEach((v, i) => {
-                    const verseDiv = document.createElement('div');
-                    verseDiv.className = "neu-card p-6 relative";
-                    verseDiv.innerHTML = `
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="neu-inset px-3 py-1 text-[10px] font-bold text-amber-600">Ayat ${i+1}</span>
-                            <div class="flex gap-2">
-                                <button class="w-8 h-8 neu-card flex items-center justify-center text-xs neu-btn">▶</button>
-                                <button onclick="toggleTafsir(${i})" class="w-8 h-8 neu-card flex items-center justify-center text-xs neu-btn">📖</button>
-                            </div>
-                        </div>
-                        <p class="arabic text-3xl text-emerald-900 text-right leading-[2.5] mb-4">${v.text_uthmani}</p>
-                        <p class="text-sm text-slate-600 leading-relaxed font-medium">${v.translations[0].text}</p>
-                        <div id="tafsir-${i}" class="tafsir-box"></div>
-                    `;
-                    container.appendChild(verseDiv);
+                if(id !== 1 && id !== 9) container.innerHTML = '<p class="arabic text-2xl text-center my-6">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>';
+                
+                // MAPPING BERDASARKAN FAIL 1.JSON ANDA
+                data.verses.forEach(v => {
+                    const msTrans = v.translations.find(t => t.resource_id === 39)?.text || "Tiada terjemahan";
+                    container.innerHTML += `
+                        <div class="neu-card p-6 mb-4">
+                            <p class="text-[10px] font-bold text-amber-600 mb-2">AYAT ${v.verse_number}</p>
+                            <p class="arabic text-2xl text-emerald-900 text-right leading-[2] mb-4">${v.text_uthmani}</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">${msTrans}</p>
+                        </div>`;
                 });
-                container.scrollTop = 0;
-            } catch(e) { container.innerHTML = '<p class="text-center text-rose-400 py-20">Ralat memuatkan data.</p>'; }
-        }
-
-        function toggleTafsir(index) {
-            const box = document.getElementById(`tafsir-${index}`);
-            if(box.style.display === 'none' || !box.style.display) {
-                box.innerHTML = `<h4 class="font-extrabold text-emerald-800 mb-2 uppercase text-[10px] tracking-widest">Tafsir Ibnu Kathir</h4>${currentTafsirData.tafsirs[index].text}`;
-                box.style.display = 'block';
-            } else { box.style.display = 'none'; }
+            } catch(e) { container.innerHTML = '<p class="text-center text-rose-500 py-20">Ralat data.</p>'; }
         }
     </script>
 </body>
