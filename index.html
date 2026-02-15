@@ -102,7 +102,6 @@
         let currentSurahId = 0;
         let currentSurahName = "";
 
-        // NAVIGATION
         function showPage(id) {
             ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage'].forEach(p => 
                 document.getElementById(p)?.classList.add('hidden'));
@@ -111,7 +110,6 @@
             if(id === 'homePage') updateLastReadUI();
         }
 
-        // ZIKIR LOGIC
         const listZikir = [
             {t: '1. Tasbih', c: 33, a: 'سُبْحَانَ ٱللَّٰهِ'},
             {t: '2. Tahmid', c: 33, a: 'ٱلْحَمْدُ لِلَّٰهِ'},
@@ -130,14 +128,14 @@
         function startZikir(t, l, a) { showPage('counterPage'); document.getElementById('arabicText').innerText = a; count = l; document.getElementById('countDisplay').innerText = count; }
         function decrement() { if(count > 0) { count--; document.getElementById('countDisplay').innerText = count; if(navigator.vibrate) navigator.vibrate(40); if(count===0) { alert("Alhamdulillah!"); showPage('zikirMenuPage'); } } }
 
-        // QURAN MENU LOGIC
         async function showQuranMenu() {
             showPage('quranMenuPage');
             const container = document.getElementById('surahListContainer');
             if (semuaSurah.length === 0) {
                 container.innerHTML = '<p class="text-center py-10 italic">Memuatkan surah...</p>';
                 try {
-                    const res = await fetch(`${BASE_URL}/chapters/all.json`);
+                    const cacheBuster = new Date().getTime();
+                    const res = await fetch(`${BASE_URL}/chapters/all.json?t=${cacheBuster}`);
                     const data = await res.json();
                     semuaSurah = data.chapters;
                     container.innerHTML = semuaSurah.map(s => `
@@ -156,7 +154,6 @@
             }
         }
 
-        // QURAN READER LOGIC
         async function muatAyatSurah(id, nama) {
             currentSurahId = id;
             currentSurahName = nama;
@@ -166,9 +163,12 @@
             container.innerHTML = '<p class="text-center py-20 italic text-slate-500">Memuatkan Kalamullah...</p>';
             
             try {
-                const res = await fetch(`${BASE_URL}/chapters/${id}.json`);
+                // Anti-Cache: Memastikan fail terbaru diambil dari GitHub
+                const cacheBuster = new Date().getTime();
+                const res = await fetch(`${BASE_URL}/chapters/${id}.json?t=${cacheBuster}`);
                 const data = await res.json();
-                currentVerses = data.verses;
+                
+                currentVerses = data.verses || [];
                 displayedCount = 0;
                 container.innerHTML = '';
 
@@ -179,17 +179,23 @@
                 paparHalamanSeterusnya();
                 document.getElementById('loadMoreBtn').onclick = paparHalamanSeterusnya;
                 container.scrollTop = 0;
-            } catch(e) { container.innerHTML = '<p class="text-center text-rose-500 py-20 italic">Ralat memuatkan fail surah.</p>'; }
+            } catch(e) { 
+                container.innerHTML = `<div class="p-10 text-center">
+                    <p class="text-rose-500 font-bold">Gagal memuatkan Surah ${id}.</p>
+                    <p class="text-[10px] text-slate-400 mt-2">Sila pastikan fail ${id}.json wujud di GitHub.</p>
+                </div>`; 
+            }
         }
 
         function paparHalamanSeterusnya() {
             const container = document.getElementById('quranContent');
             const start = displayedCount;
             const end = start + PAGE_SIZE;
-            const batch = currentVerses.slice(start, end);
+            
+            // Filter data kosong untuk mengelakkan ralat paparan
+            const batch = currentVerses.slice(start, end).filter(v => v != null);
 
             batch.forEach(v => {
-                // Penambahbaikan: Safety check untuk translations dan text_uthmani
                 const msTrans = v.translations?.find(t => t.resource_id === 39)?.text || "Terjemahan tidak ditemui";
                 const div = document.createElement('div');
                 div.className = "neu-card p-6 mb-6 mx-1 ayat-box";
@@ -198,7 +204,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <span class="neu-inset px-3 py-1 text-[10px] font-bold text-amber-600">AYAT ${v.verse_number}</span>
                     </div>
-                    <p class="arabic text-3xl text-emerald-950 text-right leading-[2.8] mb-4">${v.text_uthmani || "Teks Arab tidak ditemui"}</p>
+                    <p class="arabic text-3xl text-emerald-950 text-right leading-[2.8] mb-4">${v.text_uthmani || ""}</p>
                     <div class="h-[1px] bg-slate-200 w-full mb-4 opacity-50"></div>
                     <p class="text-sm text-slate-600 leading-relaxed font-medium">${msTrans}</p>
                 `;
@@ -211,18 +217,16 @@
                 btn.classList.add('hidden');
             } else {
                 btn.classList.remove('hidden');
-                btn.innerText = `MUAT AYAT SETERUSNYA (${displayedCount}/${currentVerses.length})`;
+                btn.innerText = `MUAT AYAT SETERUSNYA (${Math.min(displayedCount, currentVerses.length)}/${currentVerses.length})`;
             }
         }
 
-        // JUMP TO VERSE
         function lompatKeAyat() {
             const input = document.getElementById('jumpToVerseInput');
             const target = parseInt(input.value);
             if (!target || target < 1 || target > currentVerses.length) {
-                alert(`Sila masukkan nombor ayat antara 1 hingga ${currentVerses.length}`); return;
+                alert(`Sila masukkan ayat 1 hingga ${currentVerses.length}`); return;
             }
-            // Muat batch sehingga ayat sasaran ada dalam DOM
             while (displayedCount < target) { paparHalamanSeterusnya(); }
             
             setTimeout(() => {
@@ -235,7 +239,6 @@
             }, 200);
         }
 
-        // LAST READ LOGIC
         function setLastRead(id, nama, ayat) {
             if(!id || !nama || !ayat) return;
             localStorage.setItem('lastReadQuran', JSON.stringify({id, nama, ayat}));
@@ -260,11 +263,8 @@
             }
         }
 
-        // INITIALIZATION & OBSERVER
         window.onload = () => {
             updateLastReadUI();
-            
-            // Observer untuk Auto-Save Bookmark semasa skrol
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
