@@ -57,8 +57,7 @@
 
     <section id="zikirMenuPage" class="hidden px-6 space-y-4 max-w-md mx-auto">
         <h2 class="text-xl font-black text-slate-800 uppercase">Pilih Zikir</h2>
-        <div id="zikirList" class="space-y-4">
-            </div>
+        <div id="zikirList" class="space-y-4"></div>
     </section>
 
     <section id="quranMenuPage" class="hidden px-6 max-w-md mx-auto">
@@ -80,8 +79,7 @@
                 <button onclick="lompatKeAyat()" class="px-4 py-2 neu-card text-[10px] font-black text-emerald-700 neu-btn">PERGI</button>
             </div>
         </header>
-        <div id="quranContent" class="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">
-            </div>
+        <div id="quranContent" class="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll"></div>
         <div id="readerFooter" class="p-4">
              <button id="loadMoreBtn" class="w-full py-4 neu-card font-black text-emerald-700 neu-btn text-xs">MUAT AYAT SETERUSNYA</button>
         </div>
@@ -104,7 +102,7 @@
         let currentSurahId = 0;
         let currentSurahName = "";
 
-        // TUKAR PAGE
+        // NAVIGATION
         function showPage(id) {
             ['homePage', 'zikirMenuPage', 'quranMenuPage', 'counterPage', 'surahReaderPage'].forEach(p => 
                 document.getElementById(p)?.classList.add('hidden'));
@@ -113,7 +111,7 @@
             if(id === 'homePage') updateLastReadUI();
         }
 
-        // LOGIK ZIKIR
+        // ZIKIR LOGIC
         const listZikir = [
             {t: '1. Tasbih', c: 33, a: 'سُبْحَانَ ٱللَّٰهِ'},
             {t: '2. Tahmid', c: 33, a: 'ٱلْحَمْدُ لِلَّٰهِ'},
@@ -122,7 +120,7 @@
             {t: '5. Tasbih Mizan', c: 33, a: 'سُبْحَانَ اللهِ وَبِحَمْدِهِ'}
         ];
         document.getElementById('zikirList').innerHTML = listZikir.map(z => `
-            <div onclick="startZikir('${z.t}', ${z.c}, '${z.a}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn">
+            <div onclick="startZikir('${z.t}', ${z.c}, '${z.a}')" class="neu-card p-5 flex justify-between items-center cursor-pointer neu-btn mb-2">
                 <div><h3 class="font-bold text-sm text-slate-700">${z.t}</h3><p class="text-[10px] text-slate-400 font-bold">${z.c} KALI</p></div>
                 <span class="text-emerald-500 font-bold">→</span>
             </div>
@@ -132,7 +130,7 @@
         function startZikir(t, l, a) { showPage('counterPage'); document.getElementById('arabicText').innerText = a; count = l; document.getElementById('countDisplay').innerText = count; }
         function decrement() { if(count > 0) { count--; document.getElementById('countDisplay').innerText = count; if(navigator.vibrate) navigator.vibrate(40); if(count===0) { alert("Alhamdulillah!"); showPage('zikirMenuPage'); } } }
 
-        // LOGIK QURAN MENU
+        // QURAN MENU LOGIC
         async function showQuranMenu() {
             showPage('quranMenuPage');
             const container = document.getElementById('surahListContainer');
@@ -158,7 +156,7 @@
             }
         }
 
-        // LOGIK PEMBACA (READER)
+        // QURAN READER LOGIC
         async function muatAyatSurah(id, nama) {
             currentSurahId = id;
             currentSurahName = nama;
@@ -191,7 +189,8 @@
             const batch = currentVerses.slice(start, end);
 
             batch.forEach(v => {
-                const msTrans = v.translations.find(t => t.resource_id === 39)?.text || "Tiada terjemahan";
+                // Penambahbaikan: Safety check untuk translations dan text_uthmani
+                const msTrans = v.translations?.find(t => t.resource_id === 39)?.text || "Terjemahan tidak ditemui";
                 const div = document.createElement('div');
                 div.className = "neu-card p-6 mb-6 mx-1 ayat-box";
                 div.setAttribute('data-verse', v.verse_number);
@@ -199,7 +198,7 @@
                     <div class="flex justify-between items-center mb-4">
                         <span class="neu-inset px-3 py-1 text-[10px] font-bold text-amber-600">AYAT ${v.verse_number}</span>
                     </div>
-                    <p class="arabic text-3xl text-emerald-950 text-right leading-[2.8] mb-4">${v.text_uthmani}</p>
+                    <p class="arabic text-3xl text-emerald-950 text-right leading-[2.8] mb-4">${v.text_uthmani || "Teks Arab tidak ditemui"}</p>
                     <div class="h-[1px] bg-slate-200 w-full mb-4 opacity-50"></div>
                     <p class="text-sm text-slate-600 leading-relaxed font-medium">${msTrans}</p>
                 `;
@@ -216,14 +215,16 @@
             }
         }
 
-        // LOMPAT AYAT
+        // JUMP TO VERSE
         function lompatKeAyat() {
             const input = document.getElementById('jumpToVerseInput');
             const target = parseInt(input.value);
             if (!target || target < 1 || target > currentVerses.length) {
-                alert("Nombor ayat tidak sah"); return;
+                alert(`Sila masukkan nombor ayat antara 1 hingga ${currentVerses.length}`); return;
             }
+            // Muat batch sehingga ayat sasaran ada dalam DOM
             while (displayedCount < target) { paparHalamanSeterusnya(); }
+            
             setTimeout(() => {
                 const el = document.querySelector(`[data-verse="${target}"]`);
                 if(el) {
@@ -236,7 +237,7 @@
 
         // LAST READ LOGIC
         function setLastRead(id, nama, ayat) {
-            if(!id || !nama) return;
+            if(!id || !nama || !ayat) return;
             localStorage.setItem('lastReadQuran', JSON.stringify({id, nama, ayat}));
         }
 
@@ -259,9 +260,11 @@
             }
         }
 
-        // AUTO-SAVE SEMASA SKROL
+        // INITIALIZATION & OBSERVER
         window.onload = () => {
             updateLastReadUI();
+            
+            // Observer untuk Auto-Save Bookmark semasa skrol
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
